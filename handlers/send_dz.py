@@ -61,13 +61,15 @@ async def process_num_dz(message: types.Message, state: FSMContext):
 
     if number_dz.isdigit():
         number_dz = int(number_dz)
-        
+
         if number_dz >= 1 and number_dz <= 8:
             await state.update_data(number_dz=number_dz)
             await state.set_state(Dz.link)
             await message.answer("Теперь введи ссылку на свой гит")
         else:
-            await message.answer("Номер дзшки должен быть от 1 до 8. Пожалуйста, попробуй снова.")
+            await message.answer(
+                "Номер дзшки должен быть от 1 до 8. Пожалуйста, попробуй снова."
+            )
     else:
         await message.answer("Это не число! Пожалуйста, введи номер домашки от 1 до 8.")
 
@@ -80,7 +82,7 @@ async def process_link(message: types.Message, state: FSMContext):
         await state.update_data(link=link)
         await message.answer("Дз успешно отправлено")
         data = await state.get_data()
-        
+
         database.execute(
             query=""" 
             INSERT INTO homework (name, group_dz, number_dz, link)
@@ -91,5 +93,6 @@ async def process_link(message: types.Message, state: FSMContext):
 
         await state.clear()
     else:
-        await message.answer("Ссылка должна начинаться с 'https://github.com'. Пожалуйста, попробуй снова.")
-
+        await message.answer(
+            "Ссылка должна начинаться с 'https://github.com'. Пожалуйста, попробуй снова."
+        )

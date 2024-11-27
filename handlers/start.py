@@ -16,6 +16,6 @@ async def start(message: types.Message):
     )
 
     await message.answer(
-        f"Привет, {name}\n\n" f"Ты попал в бота для отправк домашнего задания",
+        f"Привет, {name}\n\n" f"Ты попал в бота для отправки домашнего задания",
         reply_markup=kb,
     )
